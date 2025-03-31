@@ -1,5 +1,5 @@
 const fetchunsplash = async (): Promise<string> => {
-    const chave_api_unsplash:string = "TPEbPt9EMbLvZEXMUqYhNiCVtugoti_-B_-Fi_S1VC0" 
+    const chave_api_unsplash:string = "Digite aqui sua chave de acesso unsplash!" 
     const query:string[] = ["mar","natureza","oceano","praia","animais","flores","florestas","paisagens","dunas","beleza","cidades","montanhas","dia","noite"]
     const url = `https://api.unsplash.com/search/photos?query=${query}&client_id=${chave_api_unsplash}`
 
