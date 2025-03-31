@@ -1,4 +1,4 @@
-git clone htLista de Tarefas
+Lista de Tarefas
 
 Este é um projeto de Lista de Tarefas (To-Do List) desenvolvido com TypeScript, HTML e CSS. O objetivo é permitir que o usuário adicione, visualize e remova tarefas, com persistência de dados utilizando o localStorage.
 
