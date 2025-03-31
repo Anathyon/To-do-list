@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de tarefas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Agdasima:wght@400;700&family=Big+Shoulders+Inline:opsz,wght@10..72,100..900&display=swap" rel="stylesheet">
+    <link rel="icon" href="icon/ic.svg">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="index.css">  
+</head>
+<body>
+    <main id="cx_principal">
+        <header id="cx_header">
+        <h1> Lista de tarefas</h1>
+        </header>
+        <h2>Adicione uma tarefa:</h2>  
+        <section id="add_tarefa" class="cxs_main"> 
+        <form id="form_princ" class="form_ajuste">
+                  <input type="text" id="inp_tarefa" placeholder="Adicione sua tarefa:" maxlength="50">
+                  <button type="submit" id="bt_adicionar"> 
+                     <i class="bi bi-send-plus"></i>
+                  </button>
+        </form>
+        </section>
+        <section id="title_tool">
+            <h3>Selecione uma hora:</h3>
+            <h3>Selecione uma data:</h3> 
+            </section>
+        <section id="data_hora">
+            <input type="time" id="inp_horas" class="inp_time_date">
+            <input type="date" id="inp_data" class="inp_time_date">
+       </section>
+        <section id="edt_tarefa" class="cxs_main">
+        <dialog id="cx_dialog_edt">
+            <form id="form_edit">
+                <h1> Edite sua tarefa: </h1>  
+                 <input type="text" id="inp_edit" placeholder="Altere sua tarefa:" maxlength="50">
+                 <section id="cx_bts_edt">
+                 <button type="submit" id="bt_edt_envia" class="bts_edt"><i class="bi bi-send-check"></i></button>
+                 <button id="bt_cancelar" class="bts_edt"><i class="bi bi-x"></i></button>
+                </section>
+        </form>
+        </dialog>
+        <dialog id="cx_dialog_edt_hr_dt">
+                <h1> Edite a hora ou data da sua tarefa: </h1>  
+                <section id="edt_inp_dt_hr">
+                <input type="time" id="inp_horas_edt" class="inp_time_date">
+                <input type="date" id="inp_data_edt" class="inp_time_date">
+                </section> 
+                <section id="cx_bts_edt">
+                 <button type="submit" id="bt_edt_envia_hr_dt" class="bts_edt"><i class="bi bi-send-check"></i></button>
+                 <button id="bt_cancelar_hr_dt" class="bts_edt"><i class="bi bi-x"></i></button>
+                </section>
+        </form>
+        </dialog>
+        </section>
+        <section id="title_tool">
+        <h3>Pesquisar tarefa:</h3>
+        <h3>Filtro de atividades:</h3> 
+        </section>
+        <section id="sec_pesquisa_filtro">      
+            <section id="pesquisa"> 
+            <form id="pesq" class="form_ajuste">
+                <input type="text" id="inp_pesq" placeholder="Pesquisar tarefa:">
+                <button type="submit" id="bt_pesquisar"><i class="bi bi-search"></i></button>
+            </form>
+          </section>
+            <section id="filter">
+                <select id="menu_opcoes" >
+                    <option class="op_edt" id="todas_tarefas" value="todas">Todas</option>
+                    <option class="op_edt" id="tarefas_incompletas" value="incompletas">Incompletas</option>
+                    <option class="op_edt" id="tarefas_completas" value="completas">Completas</option>
+                 </select>
+            </section> 
+        </section>
+        <section id="tarefas"> 
+
+        </section>
+</section>
+    </main>
+    <script src="script_js/index.js" type="module"></script>
+</body>
+</html>
