@@ -19,6 +19,7 @@ body{
 #cx_principal{
     position: relative;
     margin-top: 2%;
+    margin-bottom: 2%;
     left: 28%;
     background: linear-gradient(120deg, #00f7ff8f, #00f798a2);
     width: 50dvw;
