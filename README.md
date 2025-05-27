@@ -42,12 +42,8 @@ Este é um projeto simples e funcional de **Lista de Tarefas (To-Do List)** dese
 
 | Desktop             | Mobile              |
 |---------------------|---------------------|
-<div align="center">
-  <img src="./public/assets/todo-desktop.png" width="400" alt="Versão Desktop" />
-  <img src="./public/assets/todo-mobile.jpg" width="200" alt="Versão Mobile" />
-</div>
+<div align="center"> <img src="./assets/todo-desktop.png.png" width="400" alt="Versão Desktop" /> <img src="./assets/todo-mobile.jpg.jpg" width="200" alt="Versão Mobile" /> </div>
 
-*(Troque os caminhos acima pelas imagens reais do seu projeto)*
 
 ---
 
