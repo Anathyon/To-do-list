@@ -1,6 +1,29 @@
 const fetchunsplash = async (): Promise<string> => {
     const chave_api_unsplash:string = "Digite aqui sua chave de acesso unsplash!" 
-    const query:string[] = ["mar","natureza","oceano","praia","animais","flores","florestas","paisagens","dunas","beleza","cidades","montanhas","dia","noite"]
+    const query:string[] = [
+  "morning routine",
+  "breakfast",
+  "coffee",
+  "work",
+  "office",
+  "study",
+  "reading",
+  "exercise",
+  "running",
+  "yoga",
+  "cooking",
+  "lunch",
+  "cleaning",
+  "shopping",
+  "commute",
+  "walking",
+  "meditation",
+  "relaxing",
+  "socializing",
+  "dinner",
+  "evening",
+  "sleep"
+]
     const url = `https://api.unsplash.com/search/photos?query=${query}&client_id=${chave_api_unsplash}`
 
     const response = await fetch(url)
