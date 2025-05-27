@@ -26,6 +26,7 @@ body{
     width: 50dvw;
     height: auto;
     padding: 1%;
+    border-radius: 1.2rem;
 }
 
 .hide{
