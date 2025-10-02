@@ -1,38 +1,58 @@
+// Imports e referências atualizadas
 import { background_img_unsplash } from "./api.js";
 if (Notification.permission === "default") {
     Notification.requestPermission();
 }
+// Chamar a função de fundo
 background_img_unsplash();
+// Elementos da Adição de Tarefa
 const tarefas = document.querySelector("#tarefas");
 const form_princ = document.querySelector("#form_princ");
 const inp_tarefa = document.querySelector("#inp_tarefa");
 const inp_horas = document.querySelector("#inp_horas");
 const inp_data = document.querySelector("#inp_data");
 const bt_adicionar = document.querySelector("#bt_adicionar");
+// Elementos de Edição (mantidos)
 const cx_dialog_edt = document.querySelector("#cx_dialog_edt");
 const bt_edt_envia = document.querySelector("#bt_edt_envia");
 const bt_cancelar = document.querySelector("#bt_cancelar");
 const form_edit = document.querySelector("#form_edit");
 const inp_edit = document.querySelector("#inp_edit");
+const cx_dialog_edt_hr_dt = document.querySelector("#cx_dialog_edt_hr_dt");
 const bt_edt_envia_hr_dt = document.querySelector("#bt_edt_envia_hr_dt");
 const bt_cancelar_hr_dt = document.querySelector("#bt_cancelar_hr_dt");
 const inp_data_edt = document.querySelector("#inp_data_edt");
 const inp_horas_edt = document.querySelector("#inp_horas_edt");
-const cx_dialog_edt_hr_dt = document.querySelector("#cx_dialog_edt_hr_dt");
+// Elementos de Pesquisa
 const pesq = document.querySelector("#pesq");
 const inp_pesq = document.querySelector("#inp_pesq");
 const bt_pesquisar = document.querySelector("#bt_pesquisar");
-const menu_opcoes = document.querySelector("#menu_opcoes");
-const todas_tarefas = document.querySelector("#todas_tarefas");
-const tarefas_incompletas = document.querySelector("#tarefas_incompletas");
-const tarefas_completas = document.querySelector("#tarefas_completas");
+// Elementos de Filtro (Botões substituem o select)
+const filter_buttons = document.querySelectorAll(".filter_btn");
+const no_tasks_message = document.querySelector("#no_tasks_message");
 let array_tarefas = [];
+// Função para atualizar as estatísticas no painel
+const updateStats = () => {
+    const total = array_tarefas.length;
+    const completed = array_tarefas.filter(t => t.completa).length;
+    // Contagem de tarefas nas próximas 24h
+    const now = Date.now();
+    const tomorrow = now + 24 * 60 * 60 * 1000;
+    const upcoming = array_tarefas.filter(t => {
+        const taskDate = new Date(`${t.data}T${t.hora}`).getTime();
+        return !t.completa && taskDate > now && taskDate < tomorrow;
+    }).length;
+    document.querySelector("#total_tasks").textContent = total.toString();
+    document.querySelector("#completed_tasks").textContent = completed.toString();
+    document.querySelector("#upcoming_tasks").textContent = upcoming.toString();
+};
 document.addEventListener("DOMContentLoaded", () => {
     const tarefasSalvas = localStorage.getItem("Tarefas");
     if (tarefasSalvas) {
         array_tarefas = JSON.parse(tarefasSalvas);
         array_tarefas.forEach((tarefa) => adicionarElementoTarefa(tarefa));
     }
+    updateStats();
 });
 form_edit.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -48,6 +68,7 @@ bt_adicionar.addEventListener("click", () => {
         alert("Você não pode adicionar uma tarefa sem título!");
         return;
     }
+    // Apenas alerte se data E hora não forem preenchidas. O usuário pode querer apenas uma data, mas o seu HTML exige as duas.
     if (inp_data.value.trim() === "" || inp_horas.value.trim() === "") {
         alert("Você não pode adicionar uma tarefa sem data ou hora!");
         return;
@@ -64,6 +85,8 @@ bt_adicionar.addEventListener("click", () => {
     inp_tarefa.value = "";
     inp_horas.value = "";
     inp_data.value = "";
+    updateStats();
+    checkNoTasksMessage();
 });
 const chama_notificacao = (titulo, descricao) => {
     if (Notification.permission === "granted") {
@@ -76,8 +99,17 @@ const chama_notificacao = (titulo, descricao) => {
         console.error("Úsuario negou permissão as notificações");
     }
 };
+const checkNoTasksMessage = () => {
+    no_tasks_message.style.display = tarefas.children.length === 0 ? "flex" : "none";
+    if (tarefas.children.length > 0 && tarefas.children[0].id === 'no_tasks_message') {
+        tarefas.removeChild(no_tasks_message);
+    }
+    if (tarefas.children.length === 0 && !document.getElementById('no_tasks_message')) {
+        tarefas.appendChild(no_tasks_message);
+    }
+};
 const adicionarElementoTarefa = (tarefa) => {
-    let notificacaoEnviada = false;
+    let notificacaoEnviada = false; // Variável de controle dentro do escopo da tarefa
     const ne_section = document.createElement("section");
     ne_section.setAttribute("class", "cx_tarefa anima_tarefa");
     if (tarefa.completa) {
@@ -87,63 +119,64 @@ const adicionarElementoTarefa = (tarefa) => {
     ne_h3_tt_tarefa.setAttribute("class", "titulo_tarefa");
     const span_data_hora = document.createElement("span");
     span_data_hora.setAttribute("class", "data_hora_tarefa");
+    // Container para os botões de ação para melhor controle no layout
+    const btns_container = document.createElement("div");
+    btns_container.setAttribute("class", "task_btns_container");
     const ne_bt_remove = document.createElement("button");
     ne_bt_remove.setAttribute("class", "st_bts_tarefas bt_remo");
+    ne_bt_remove.setAttribute("title", "Remover");
     const ne_bt_complta = document.createElement("button");
     ne_bt_complta.setAttribute("class", "st_bts_tarefas bt_completa");
+    ne_bt_complta.setAttribute("title", "Concluir");
     const ne_bt_edt = document.createElement("button");
     ne_bt_edt.setAttribute("class", "st_bts_tarefas bt_edt");
+    ne_bt_edt.setAttribute("title", "Editar Título");
     const ne_bt_edt_dt_hr = document.createElement("button");
     ne_bt_edt_dt_hr.setAttribute("class", "st_bts_tarefas bt_edt_dt_hr");
+    ne_bt_edt_dt_hr.setAttribute("title", "Editar Data/Hora");
     const ne_ic_remo = document.createElement("i");
     ne_ic_remo.setAttribute("class", "bi bi-trash3");
     ne_bt_remove.appendChild(ne_ic_remo);
     const ne_ic_complta = document.createElement("i");
-    ne_ic_complta.setAttribute("class", "bi bi-clipboard2-check-fill");
+    ne_ic_complta.setAttribute("class", "bi bi-check-lg"); // Mudei o ícone para ficar mais limpo
     ne_bt_complta.appendChild(ne_ic_complta);
     const ne_ic_edt = document.createElement("i");
     ne_ic_edt.setAttribute("class", "bi bi-pencil-square");
     ne_bt_edt.appendChild(ne_ic_edt);
     const ne_ic_edt_dt_hr = document.createElement("i");
-    ne_ic_edt_dt_hr.setAttribute("class", "bi bi-alarm");
+    ne_ic_edt_dt_hr.setAttribute("class", "bi bi-clock-fill"); // Mudei o ícone para ficar mais limpo
     ne_bt_edt_dt_hr.appendChild(ne_ic_edt_dt_hr);
     ne_h3_tt_tarefa.textContent = tarefa.titulo;
-    span_data_hora.textContent = ` (${tarefa.hora} - ${tarefa.data})`;
+    span_data_hora.textContent = ` (${tarefa.hora} - ${formatDate(tarefa.data)})`; // Chamando função de formatação para data
     ne_h3_tt_tarefa.appendChild(span_data_hora);
-    ne_section.append(ne_h3_tt_tarefa, ne_bt_remove, ne_bt_complta, ne_bt_edt, ne_bt_edt_dt_hr);
+    btns_container.append(ne_bt_edt_dt_hr, ne_bt_edt, ne_bt_complta, ne_bt_remove);
+    ne_section.append(ne_h3_tt_tarefa, btns_container);
     tarefas.appendChild(ne_section);
-    const agendarNotificacao = (titulo, descricao, diferenca, tarefaCompleta) => {
-        if (!notificacaoEnviada && tarefaCompleta) {
-            notificacaoEnviada = true;
-            descricao = `Sua tarefa: ${ne_h3_tt_tarefa.textContent}, já está completa!`;
-            new Notification(titulo, {
-                body: descricao,
-                icon: "icon/ic.svg"
-            });
-            return;
-        }
-        if (diferenca > 0 && !notificacaoEnviada) {
-            notificacaoEnviada = true;
+    checkNoTasksMessage(); // Verifica se deve mostrar a mensagem de 'sem tarefas'
+    // Lógica de Notificação (Simplificada e adaptada)
+    const agendarNotificacao = (titulo, descricao, diferenca) => {
+        if (diferenca > 0 && !tarefa.completa) {
             setTimeout(() => {
-                chama_notificacao(titulo, descricao);
+                if (!tarefa.completa) { // Verifica novamente se não foi concluída
+                    chama_notificacao(titulo, descricao);
+                }
             }, diferenca);
-        }
-        else if (diferenca <= 0) {
-            console.error("Tarefa passou do prazo");
         }
     };
     const dataHoraTarefa = new Date(`${tarefa.data}T${tarefa.hora}`).getTime() - Date.now();
-    agendarNotificacao(ne_h3_tt_tarefa.textContent, `Você já concluiu sua tarefa: ${ne_h3_tt_tarefa.textContent}?`, dataHoraTarefa, tarefa.completa);
+    agendarNotificacao(`Lembrete: ${tarefa.titulo}`, `Sua tarefa está agendada para ${tarefa.hora} de ${formatDate(tarefa.data)}.`, dataHoraTarefa);
     ne_bt_complta.addEventListener("click", () => {
         tarefa.completa = !tarefa.completa;
-        ne_section.classList.add("completa");
+        ne_section.classList.toggle("completa");
         localStorage.setItem("Tarefas", JSON.stringify(array_tarefas));
+        updateStats();
     });
-    bt_edt_envia.replaceWith(bt_edt_envia.cloneNode(true));
+    // Lógica de Edição de Título (melhorada para evitar múltiplos listeners)
     ne_bt_edt.addEventListener("click", () => {
         inp_edit.value = tarefa.titulo;
         cx_dialog_edt.showModal();
-        bt_edt_envia.addEventListener("click", () => {
+        const handleEditSubmit = (e) => {
+            e.preventDefault();
             if (inp_edit.value.trim() !== "") {
                 tarefa.titulo = inp_edit.value;
                 ne_h3_tt_tarefa.textContent = tarefa.titulo;
@@ -151,62 +184,105 @@ const adicionarElementoTarefa = (tarefa) => {
                 localStorage.setItem("Tarefas", JSON.stringify(array_tarefas));
                 cx_dialog_edt.close();
             }
-        });
-        bt_cancelar.addEventListener("click", () => {
+            bt_edt_envia.removeEventListener("click", handleEditSubmit);
+        };
+        const handleCancel = () => {
             cx_dialog_edt.close();
-        });
+            bt_edt_envia.removeEventListener("click", handleEditSubmit);
+            bt_cancelar.removeEventListener("click", handleCancel);
+        };
+        // Adiciona e remove listeners para garantir que o evento não se repita
+        bt_edt_envia.addEventListener("click", handleEditSubmit);
+        bt_cancelar.addEventListener("click", handleCancel);
     });
+    // Lógica de Edição de Data/Hora (melhorada para evitar múltiplos listeners)
     ne_bt_edt_dt_hr.addEventListener("click", () => {
         inp_data_edt.value = tarefa.data;
         inp_horas_edt.value = tarefa.hora;
         cx_dialog_edt_hr_dt.showModal();
-        requestAnimationFrame(() => {
-            cx_dialog_edt_hr_dt.classList.add("show");
-        });
-        bt_edt_envia_hr_dt.addEventListener("click", () => {
+        const handleTimeDateSubmit = (e) => {
+            e.preventDefault();
             if (inp_data_edt.value.trim() !== "" && inp_horas_edt.value.trim() !== "") {
                 tarefa.data = inp_data_edt.value;
                 tarefa.hora = inp_horas_edt.value;
-                span_data_hora.textContent = ` (${tarefa.hora} - ${tarefa.data})`;
+                span_data_hora.textContent = ` (${tarefa.hora} - ${formatDate(tarefa.data)})`;
                 localStorage.setItem("Tarefas", JSON.stringify(array_tarefas));
                 cx_dialog_edt_hr_dt.close();
+                updateStats();
             }
-        });
-        bt_cancelar_hr_dt.addEventListener("click", () => {
+            bt_edt_envia_hr_dt.removeEventListener("click", handleTimeDateSubmit);
+        };
+        const handleTimeDateCancel = () => {
             cx_dialog_edt_hr_dt.close();
-        });
+            bt_edt_envia_hr_dt.removeEventListener("click", handleTimeDateSubmit);
+            bt_cancelar_hr_dt.removeEventListener("click", handleTimeDateCancel);
+        };
+        bt_edt_envia_hr_dt.addEventListener("click", handleTimeDateSubmit);
+        bt_cancelar_hr_dt.addEventListener("click", handleTimeDateCancel);
     });
     ne_bt_remove.addEventListener("click", () => {
         tarefas.removeChild(ne_section);
         array_tarefas = array_tarefas.filter((t) => !(t.titulo === tarefa.titulo && t.hora === tarefa.hora && t.data === tarefa.data));
         localStorage.setItem("Tarefas", JSON.stringify(array_tarefas));
-    });
-    bt_pesquisar.addEventListener("click", () => {
-        const tarefa_pesquisada = inp_pesq.value.trim().toLowerCase();
-        const tarefa_filtrada = array_tarefas.filter((f) => {
-            return f.titulo.toLowerCase().includes(tarefa_pesquisada);
-        });
-        tarefas.innerHTML = "";
-        tarefa_filtrada.forEach((e) => {
-            adicionarElementoTarefa(e);
-        });
-    });
-    inp_pesq.addEventListener("input", () => {
-        tarefas.innerHTML = "";
-        array_tarefas
-            .filter(t => t.titulo.toLowerCase().includes(inp_pesq.value.trim().toLowerCase()))
-            .forEach(adicionarElementoTarefa);
-    });
-    menu_opcoes.addEventListener("change", () => {
-        tarefas.innerHTML = "";
-        const tarefas_filtradas = array_tarefas.filter(tarefa => {
-            if (todas_tarefas.selected)
-                return true;
-            if (tarefas_completas.selected)
-                return tarefa.completa;
-            if (tarefas_incompletas.selected)
-                return !tarefa.completa;
-        });
-        tarefas_filtradas.forEach(adicionarElementoTarefa);
+        updateStats();
+        checkNoTasksMessage();
     });
 };
+// Lógica de Pesquisa (Mantida)
+inp_pesq.addEventListener("input", () => {
+    const searchTerm = inp_pesq.value.trim().toLowerCase();
+    tarefas.innerHTML = "";
+    const filteredAndSearchedTasks = array_tarefas
+        .filter(t => t.titulo.toLowerCase().includes(searchTerm));
+    // Aplica o filtro de status também durante a pesquisa
+    const activeFilter = document.querySelector(".filter_btn.active")?.getAttribute("data-filter") || "todas";
+    filteredAndSearchedTasks
+        .filter(t => {
+        if (activeFilter === "todas")
+            return true;
+        if (activeFilter === "completas")
+            return t.completa;
+        if (activeFilter === "incompletas")
+            return !t.completa;
+        return true;
+    })
+        .forEach(adicionarElementoTarefa);
+    checkNoTasksMessage();
+});
+// Lógica de Filtro (Botões)
+filter_buttons.forEach(button => {
+    button.addEventListener("click", (e) => {
+        const target = e.currentTarget;
+        // Remove 'active' de todos
+        filter_buttons.forEach(btn => btn.classList.remove("active"));
+        // Adiciona 'active' ao clicado
+        target.classList.add("active");
+        const filterValue = target.getAttribute("data-filter");
+        tarefas.innerHTML = "";
+        const tarefas_filtradas = array_tarefas.filter(tarefa => {
+            if (filterValue === "todas")
+                return true;
+            if (filterValue === "completas")
+                return tarefa.completa;
+            if (filterValue === "incompletas")
+                return !tarefa.completa;
+            return true;
+        });
+        // Se houver termo de pesquisa, filtra também por ele
+        const searchTerm = inp_pesq.value.trim().toLowerCase();
+        tarefas_filtradas
+            .filter(t => t.titulo.toLowerCase().includes(searchTerm))
+            .forEach(adicionarElementoTarefa);
+        checkNoTasksMessage();
+    });
+});
+// Função auxiliar para formatar a data (opcional, mas melhora a visualização)
+const formatDate = (dateString) => {
+    const parts = dateString.split('-');
+    if (parts.length === 3) {
+        return `${parts[2]}/${parts[1]}/${parts[0]}`; // Formato dd/mm/aaaa
+    }
+    return dateString;
+};
+// Coloque esta linha na função adicionarElementoTarefa:
+// span_data_hora.textContent = ` (${tarefa.hora} - ${formatDate(tarefa.data)})`

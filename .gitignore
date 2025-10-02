@@ -1,0 +1,14 @@
+# Diretórios de dependências
+node_modules/
+
+# Variáveis de ambiente (Secreta)
+.env
+
+# Arquivo TypeScript gerado que contém a chave (Deve ser ignorado!)
+# Este arquivo só existe no seu ambiente após rodar generate-config.js
+config.ts
+
+# Arquivos compilados do TypeScript
+# Se você tiver um diretório de saída como 'script_js', não ignore a pasta toda,
+# pois ela contém todos os seus arquivos de código final.
+# Manteremos 'config.js' (output compilado) no repositório para a aplicação funcionar.

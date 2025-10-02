@@ -1,0 +1,18 @@
+{
+  "name": "list",
+  "version": "2.0.0",
+  "description": "Projeto de um gerenciador de tarefas",
+  "main": "index.js",
+  "scripts": {
+    "dev": "live-server",
+    "test": "echo \\\"Error: no test specified\\\" && exit 1"
+  },
+  "author": "Anathyon",
+  "license": "ISC",
+  "devDependencies": {
+    "live-server": "^1.2.0"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3"
+  }
+}

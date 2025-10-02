@@ -1,456 +1,489 @@
+/* Reset Básico */
 *{
     box-sizing: border-box;
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
+    /* Para a transição suave de elementos */
+    transition: all 0.2s ease-in-out; 
 }
 
+/* Variáveis CSS para gerenciamento de cores e tamanhos */
+:root {
+    --dark-bg: #0d0d10; /* Fundo principal */
+    --card-bg: #1c1c24; /* Fundo dos cards (Glassmorphism base) */
+    --neon-gradient: linear-gradient(120deg, #3af7fdd8, #00bd00); /* Gradiente de destaque */
+    --neon-hover-gradient: linear-gradient(120deg, #00f7ff, #00ff66);
+    --text-light: #ffffff;
+    --text-secondary: #aaaaaa;
+    --border-radius-lg: 1.5rem;
+    --border-radius-sm: 0.5rem;
+    --task-item-bg: rgba(255, 255, 255, 0.05); /* Fundo dos itens da lista de tarefas */
+}
+
+/* Corpo e Fundo */
 body{
-   background-color: #eef8c1b9;
-   background-size: cover;
-   background-repeat: no-repeat;
-   background-position: center;
-   background-attachment: fixed;
-   text-align: center;
-   font-family: "Agdasima", sans-serif;
-   font-weight: 400;
-   font-size: 1.4rem;
-   background-color: #000000;
+    background-color: var(--dark-bg);
+    color: var(--text-light);
+    font-family: 'Poppins', sans-serif; /* Usando Poppins para melhor legibilidade */
+    font-size: 1rem;
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 2rem 0;
 }
 
-#cx_principal{
-    position: relative;
-    margin-top: 2%;
-    margin-bottom: 2%;
-    left: 28%;
-    background: linear-gradient(120deg, #00f7ff8f, #00f798a2);
-    width: 50dvw;
-    height: auto;
-    padding: 1%;
-    border-radius: 1.2rem;
+/* Container Principal */
+#wrapper{
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
 }
 
-.hide{
-    display: none;
+/* Estilo Glassmorphism (Caixas principais) */
+.glass_box {
+    background: rgba(28, 28, 36, 0.8); /* Cor de fundo com transparência */
+    backdrop-filter: blur(10px); /* Efeito de desfoque */
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: var(--border-radius-lg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    padding: 2rem;
+    margin-bottom: 2rem;
 }
 
-#sec_pesquisa_filtro{
+/*
+HEADER
+*/
+#cx_header {
+    text-align: left;
+    margin-bottom: 2rem;
+    padding: 0 1rem;
+}
+
+#rotina_dia {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #00ff66; /* Destaque neon */
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+#main_title {
+    font-size: 3rem;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+#subtitle {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+}
+
+/*
+PAINEL DE ESTATÍSTICAS
+*/
+#stats_panel {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    padding: 0 1rem;
 }
 
-#title_tool{
+.stat_card {
+    flex: 1;
+    background: var(--card-bg);
+    border-radius: var(--border-radius-lg);
+    padding: 1.5rem;
+    text-align: left;
+    min-height: 150px; /* Para simular o visual da imagem */
     display: flex;
-    justify-content: space-around;
-    padding-bottom: 1%;
-    padding-top: 2%;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.form_ajuste{
+.stat_number {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--text-light);
+}
+
+.stat_label {
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+}
+
+.stat_detail {
+    font-size: 0.9rem;
+    color: #00ff66; /* Destaque */
+}
+
+/*
+FORMULÁRIO E FERRAMENTAS
+*/
+#form_tools_container {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
+    gap: 2rem;
+    align-items: flex-start;
+    padding: 0 1rem;
 }
 
-#inp_tarefa{
-    padding: 0.6rem;
-    font-size: 1.3rem;
-    width: 50%;
+#add_task_column {
+    flex: 1;
+    text-align: left;
+}
+
+#inp_pesq{
+    padding: 1rem;
     border: none;
-    border-radius: 2rem 0 0 2rem;
-    outline: none;
-    background: linear-gradient(120deg, #0ba6acd8, #00bd00);
 }
 
-#inp_tarefa:focus {
-    outline: none;
-    box-shadow: 0 0 5px #ffffff80;
-}
-
-#bt_adicionar{
-    padding-top: 0.5rem;
-    padding: 0.6rem;
-    cursor: pointer;
-    border: none;
-    border-radius: 0 2rem 2rem 0;
-    transition: background-color 0.5s ease;
+#search_filter_column {
+    flex: 1;
+    text-align: left;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
-    font-size: 1.3rem;
-    background-color: #00af1d;
-
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
-#bt_adicionar:hover{
-    background-color: #005207;
+label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
 }
 
-#inp_pesq {
-    padding: 0.6rem;
-    font-size: 1.3rem;
-    width: 80%;
-    border: none;
-    border-radius: 2rem 0 0 2rem;
-    outline: none;
-    position: relative;
-    left: -16%;
-    background: linear-gradient(120deg, #0ba6acd8, #00bd00);
-}
-
-#inp_pesq:focus {
-    outline: none;
-    box-shadow: 0 0 5px #ffffff80;
-}
-
-#bt_pesquisar {
-    padding: 0.6rem;
-    cursor: pointer;
-    border: none;
-    border-radius: 0 2rem 2rem 0;
-    transition: background-color 0.5s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
-    font-size: 1.3rem;
-    position: relative;
-    left: -16%;
-    background-color: #00af1d;
-}
-
-#bt_pesquisar:hover {
-    background-color: #005207;
-}
-
-#cx_header{
-   padding-bottom: 2%;
-}
- 
-#edt_tarefa{
-    padding-top: 2%;
-}
-
-#cx_bts_edt{
-    padding-top: 2%;
-    display: flex;
-    justify-content: space-around;
-}
-
-#filter{
-    position: relative;
-    left: -5%;
-}
-
-#inp_edit{
-    border-radius: 2rem;
-    padding: 0.6rem;
-    font-size: 1.3rem;
+/* Inputs e Botões com Estilo Neon */
+.neon_input {
     width: 100%;
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid transparent;
+    border-radius: var(--border-radius-sm);
+    color: var(--text-light);
+    outline: none;
+    box-shadow: none;
+    transition: all 0.3s ease;
+}
+
+.neon_input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.neon_input:focus {
+    border-color: #00f7ff;
+    box-shadow: 0 0 8px rgba(0, 247, 255, 0.5);
+}
+
+/* Inputs de Hora e Data */
+#data_hora_inputs {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+
+.input_group {
+    flex: 1;
+}
+
+.time_date_input {
+    text-align: center;
+    padding: 0.8rem 0.5rem;
+}
+
+/* Botão de Adicionar */
+.neon_gradient_button {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
     border: none;
-    outline: none;
-    margin-top: 4%;
-    background: linear-gradient(120deg, #3af7fdd8, #00bd00);
-
-}
-
-#inp_edit:focus {
-    outline: none;
-    box-shadow: 0 0 5px #ffffff80;
-}
-
-
-.bts_edt{
-    padding: 0.6rem;
+    border-radius: var(--border-radius-lg);
     cursor: pointer;
-    border: none;
+    background: linear-gradient(90deg, #3af53a, #00f7ff); /* Gradiente na horizontal */
+    color: var(--dark-bg);
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: row;
-    font-size: 1.7rem;
-    padding: 2%;
-    border-radius: 100%;
-    border: none;
-    background: linear-gradient(120deg, #7ff77f, #739df7); 
-    cursor: pointer;
+    gap: 0.5rem;
+    box-shadow: 0 0 15px rgba(0, 255, 102, 0.3);
+    transition: all 0.3s ease;
 }
 
-.bts_edt:hover{
-    background: linear-gradient(120deg, #3af53a, #3773f3);
+.neon_gradient_button:hover {
+    background: linear-gradient(90deg, #00f7ff, #3af53a); 
+    box-shadow: 0 0 20px rgba(0, 255, 102, 0.6);
 }
 
-#data_hora{
+/* Área de Pesquisa */
+.search_form {
     position: relative;
     display: flex;
-    justify-content: space-around;
-    left: 3%;
-    padding-top: 1%;
-
+    align-items: center;
 }
 
-#menu_opcoes {
-    appearance: none;
-    background: linear-gradient(120deg, #33f133, #155af0); 
-    color: #000000;
-    border: none;
-    padding: 3%;
-    font-size: 1.3rem;
-    border-radius: 4%;
-    cursor: pointer;
-    width: 13dvw;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    position: relative;
-    left: -4%;
-    top: 3%;
+.search_input {
+    padding-left: 3rem; /* Espaço para o ícone */
+    border-radius: var(--border-radius-lg);
+    background: rgba(255, 255, 255, 0.15);
+    gap: 0.5rem;
 }
 
-#menu_opcoes::-ms-expand {
-    display: none;
+.search_input:focus {
+    padding-left: 3rem;
 }
 
-#menu_opcoes:focus {
-    outline: none;
-    box-shadow: 0 0 5px #ffffff80;
-}
-
-.op_edt {
-    background-color: #09bd78;
-    color: #000000;
-    padding: 10px;
-}
-
-.op_edt:hover{
-    background-color: aqua;
-}
-
-#cx_dialog_edt{
-    position: relative;
-    left: 33%;
-    top: 10%;
-    width: 40%;
-    background-color: #00f7ff96;
-    padding: 5%;
-    border: none;
-    border-radius: 2rem;
-    position: fixed;
-}
-
-#cx_dialog_edt::backdrop{
-    background-color: #000000ce;
-}
-
-.inp_time_date{
-    padding: 1%;
-    border-radius: 2rem;
-    background: linear-gradient(120deg, #33f133, #155af0); 
-    font-size: 1.5rem;
-    border: none;
-}
-
-.inp_time_date:focus {
-    outline: none;
-    box-shadow: 0 0 5px #f1f1f1d5;
-}
-
-.cx_tarefa{
-    background-color: #a3f04c65;
-    width: auto;
-    padding-bottom: 1%;
-    border-radius: 1rem;
-}
-
-.titulo_tarefa{
-    font-size: 2rem;
-    margin-top: 3%;
-}
-
-.st_bts_tarefas{
+.search_icon {
+    position: absolute;
+    left: 1rem;
+    color: var(--text-secondary);
     font-size: 1.2rem;
-    padding: 1.2%;
-    border-radius: 100%;
+    pointer-events: none;
+}
+
+/* Filtro de Botões */
+#filter_buttons {
+    display: flex;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.15); /* Fundo sutil para a barra de botões */
+    border-radius: var(--border-radius-lg);
+    padding: 0.3rem;
+}
+
+.filter_btn {
+    flex: 1;
+    padding: 0.6rem 1rem;
     border: none;
-    background: linear-gradient(120deg, #7ff77f, #739df7); 
+    border-radius: calc(var(--border-radius-lg) - 0.5rem);
+    background: transparent;
+    color: var(--text-light);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.filter_btn.active {
+    background: linear-gradient(90deg, #00f7ff, #00ff66); /* Gradiente neon para o ativo */
+    color: var(--dark-bg);
+    font-weight: 600;
+    box-shadow: 0 0 5px rgba(0, 255, 102, 0.5);
+}
+
+/*
+TAREFAS
+*/
+#tasks_header {
+    text-align: left;
+    padding: 0 1rem;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+}
+
+#tasks_header h2 {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+#tasks_header p {
+    color: var(--text-secondary);
+}
+
+#tarefas {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0 1rem;
+}
+
+.cx_tarefa {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--task-item-bg);
+    padding: 1rem 1.5rem;
+    border-radius: var(--border-radius-sm);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.titulo_tarefa {
+    flex-grow: 1;
+    text-align: left;
+    font-size: 1.1rem;
+    font-weight: 400;
+}
+
+.data_hora_tarefa {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-left: 0.5rem;
+}
+
+/* Tarefa Concluída */
+.completa {
+    opacity: 0.6;
+    background-color: rgba(0, 255, 102, 0.1);
+}
+
+.completa .titulo_tarefa {
+    text-decoration: line-through;
+    color: var(--text-secondary);
+}
+
+/* Botões de Ação na Tarefa */
+.st_bts_tarefas {
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 1.3rem;
+    margin-left: 0.8rem;
     cursor: pointer;
 }
 
-.st_bts_tarefas:hover{
-    background: linear-gradient(120deg, #3af53a, #3773f3);
+.st_bts_tarefas:hover {
+    color: #00f7ff; /* Efeito hover neon */
 }
 
-#cx_dialog_edt_hr_dt{
+/* Mensagem Sem Tarefas */
+#no_tasks_message {
+    padding: 4rem 2rem;
+    background: var(--card-bg);
+    border-radius: var(--border-radius-lg);
+    color: var(--text-secondary);
+}
+
+.meditation_emoji {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+/*
+DIALOGS (Estilizando as janelas modais)
+*/
+.dialog_style {
+    max-width: 450px;
+    padding: 2rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     position: fixed;
-    left: 40%;
-    top: 20%;
-    padding: 3%;
     border: none;
-    background-color: #00f7ff96;
-    border-radius: 2rem;
+    border-radius: var(--border-radius-lg);
 }
 
-#cx_dialog_edt_hr_dt::backdrop{
-    background-color: #000000ce;
+.dialog_style h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
 }
 
-#edt_inp_dt_hr{
+#form_edit, #form_edit_hr_dt {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#cx_bts_edt {
     display: flex;
     justify-content: space-around;
-    margin: 3% 0 3% 0;
+    padding-top: 1rem;
 }
 
-.completa{
-    text-decoration: line-through;
-    background-color: #b0b300;
+.bts_edt {
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.5rem;
+    background: var(--neon-gradient);
+    color: var(--dark-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-@keyframes fadeIn {
-    from {
-      opacity: 0; 
-      transform: translateY(-10px); 
-    }
-    to {
-      opacity: 1; 
-      transform: translateY(0); 
-    }
-  }
-
-  .anima_tarefa{
-     animation: fadeIn 0.4s ease-in-out;
-  }
-
-@media (max-width: 480px) {
-    #cx_principal {
-        width: 90dvw;
-        left: 5%;
-        margin-top: 5%;
-        padding: 3%;
-    }
-    
-    #inp_pesq,#bt_pesquisar{
-        position: relative;
-        left: -20%;
-    }
-
-    #inp_tarefa, #inp_pesq {
-        width: 50%;
-        font-size: 1.1rem;
-    }
-
-    #bt_adicionar, #bt_pesquisar {
-        font-size: 1.1rem;
-    }
-
-    #menu_opcoes {
-        width: auto;
-        font-size: 1.1rem;
-        position: relative;
-        left: -22%;
-        padding-right: 15%;
-        padding: 4%;
-    }
-
-    #cx_dialog_edt, #cx_dialog_edt_hr_dt {
-        width: 80%;
-        left: 10%;
-        padding: 10%;
-    }
-
-    .titulo_tarefa {
-        font-size: 1.5rem;
-    }
-
-    #inp_data, #inp_horas {
-        width: 40%;
-    }
-
-    .bts_edt, .st_bts_tarefas {
-        font-size: 1.2rem;
-        padding: 1.7%;
-    }
-    .inp_time_date{
-        width: 76%;
-        position: relative;
-        left: -4%;   
-    }
+.bts_edt:hover {
+    box-shadow: 0 0 10px rgba(0, 247, 255, 0.8);
 }
 
-@media (min-width: 481px) and (max-width: 1024px) {
-    #cx_principal {
-        width: 70dvw;
-        left: 15%;
-        margin-top: 10%;
-        padding: 2%;
-    }
-
-    #inp_tarefa, #inp_pesq {
-        width: 60%;
-        font-size: 1.2rem;
-    }
-
-    #bt_adicionar, #bt_pesquisar {
-        font-size: 1.2rem;
-        padding: 0.6rem;
-    }
-
-    #menu_opcoes {
-        width: auto;
-        font-size: 1.2rem;
-        position: relative;
-        left: -22%;
-        padding-right: 15%;
-        padding: 4%;
-    }
-
-    #cx_dialog_edt, #cx_dialog_edt_hr_dt {
-        width: 60%;
-        left: 20%;
-        padding: 7%;
-    }
-
-    .titulo_tarefa {
-        font-size: 1.8rem;
-    }
-
-    .bts_edt, .st_bts_tarefas {
-        font-size: 1.3rem;
-        padding: 1.5%;
-    }
+#edt_inp_dt_hr {
+    display: flex;
+    gap: 1rem;
 }
 
-@media (min-width: 1025px) {
-    #cx_principal {
-        width: 50dvw;
-        left: 28%;
-        margin-top: 2%;
-        padding: 1%;
+/* Media Queries para Responsividade */
+
+/* Telas Pequenas (Mobile) */
+@media (max-width: 768px) {
+    #form_tools_container {
+        flex-direction: column;
+        gap: 1.5rem;
     }
 
-    #inp_tarefa, #inp_pesq {
-        width: 50%;
-        font-size: 1.3rem;
-    }
-
-    #bt_adicionar, #bt_pesquisar {
-        font-size: 1.3rem;
-        padding: 0.6rem;
-    }
-
-  
-    #cx_dialog_edt, #cx_dialog_edt_hr_dt {
-        width: 40%;
-        left: 33%;
-        padding: 5%;
-    }
-
-    .titulo_tarefa {
+    #main_title {
         font-size: 2rem;
     }
 
-    .bts_edt, .st_bts_tarefas {
-        font-size: 1.4rem;
-        padding: 1%;
+    #stats_panel {
+        flex-direction: column;
+    }
+
+    .stat_card {
+        min-height: auto;
+    }
+
+    .stat_number {
+        font-size: 2rem;
+    }
+
+    .cx_tarefa {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .titulo_tarefa {
+        flex-basis: 100%; /* Ocupa toda a largura */
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .data_hora_tarefa {
+        display: block;
+        margin-left: 0;
+        margin-top: 0.3rem;
+    }
+
+    .st_bts_tarefas {
+        font-size: 1.1rem;
+        margin-left: 0.5rem;
+    }
+
+    .dialog_style {
+        width: 90%;
+        max-width: 90%;
+    }
+}
+
+/* Telas Médias (Tablet) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    #main_title {
+        font-size: 2.5rem;
+    }
+    
+    #form_tools_container {
+        gap: 1.5rem;
+    }
+
+    .stat_card {
+        padding: 1rem;
     }
 }
