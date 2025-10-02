@@ -38,6 +38,18 @@ const bt_pesquisar = document.querySelector("#bt_pesquisar") as HTMLButtonElemen
 const filter_buttons = document.querySelectorAll(".filter_btn")
 const no_tasks_message = document.querySelector("#no_tasks_message") as HTMLElement
 
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+            .then(registration => {
+                console.log('Service Worker registrado com sucesso:', registration.scope);
+            })
+            .catch(error => {
+                console.error('Falha no registro do Service Worker:', error);
+            });
+    });
+}
+
 let array_tarefas: { titulo: string; hora: string; data: string; completa: boolean; }[] = []
 
 // Função para atualizar as estatísticas no painel
