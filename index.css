@@ -150,6 +150,7 @@ FORMULÁRIO E FERRAMENTAS
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    position: relative;
 }
 
 label {
@@ -529,6 +530,12 @@ DIALOGS (Estilizando as janelas modais)
     .dialog_style {
         width: 90%;
         max-width: 90%;
+    }
+}
+
+@media (width: 360px) {
+    #search_filter_column {
+        right: 1.3rem;
     }
 }
 
