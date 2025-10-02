@@ -1,10 +1,10 @@
 /* Reset Básico */
-*{
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     /* Para a transição suave de elementos */
-    transition: all 0.2s ease-in-out; 
+    transition: all 0.2s ease-in-out;
 }
 
 /* Variáveis CSS para gerenciamento de cores e tamanhos */
@@ -17,7 +17,9 @@
     --text-secondary: #aaaaaa;
     --border-radius-lg: 1.5rem;
     --border-radius-sm: 0.5rem;
-    --task-item-bg: rgba(255, 255, 255, 0.05); /* Fundo dos itens da lista de tarefas */
+    
+    /* CORREÇÃO: Novo fundo mais opaco para o contraste das tarefas, como solicitado */
+    --task-item-bg-opaco: rgba(255, 255, 255, 0.15); 
 }
 
 /* Corpo e Fundo */
@@ -41,7 +43,8 @@ body{
 
 /* Estilo Glassmorphism (Caixas principais) */
 .glass_box {
-    background: rgba(28, 28, 36, 0.8); /* Cor de fundo com transparência */
+    /* Ajustado para 0.9 para melhor contraste geral no conteúdo, mantendo o efeito */
+    background: rgba(28, 28, 36, 0.9); 
     backdrop-filter: blur(10px); /* Efeito de desfoque */
     -webkit-backdrop-filter: blur(10px);
     border-radius: var(--border-radius-lg);
@@ -98,7 +101,7 @@ PAINEL DE ESTATÍSTICAS
     border-radius: var(--border-radius-lg);
     padding: 1.5rem;
     text-align: left;
-    min-height: 150px; /* Para simular o visual da imagem */
+    min-height: 150px; 
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -136,11 +139,6 @@ FORMULÁRIO E FERRAMENTAS
 #add_task_column {
     flex: 1;
     text-align: left;
-}
-
-#inp_pesq{
-    padding: 1rem;
-    border: none;
 }
 
 #search_filter_column {
@@ -224,30 +222,78 @@ label {
     box-shadow: 0 0 20px rgba(0, 255, 102, 0.6);
 }
 
-/* Área de Pesquisa */
+/*
+CORREÇÃO: Área de Pesquisa - Alinhamento de Input e Botão Lateral
+*/
 .search_form {
-    position: relative;
     display: flex;
     align-items: center;
+    /* Remove a necessidade de position: relative e absolute */
 }
 
 .search_input {
-    padding-left: 3rem; /* Espaço para o ícone */
-    border-radius: var(--border-radius-lg);
+    /* Ajusta para se integrar com o botão, remove o padding-left desnecessário */
+    flex-grow: 1;
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border-radius: var(--border-radius-lg) 0 0 var(--border-radius-lg); /* Cantos esquerdos arredondados */
     background: rgba(255, 255, 255, 0.15);
-    gap: 0.5rem;
+    border: 1px solid transparent;
+    color: var(--text-light);
+    outline: none;
+    box-shadow: none;
+    transition: all 0.3s ease;
 }
 
 .search_input:focus {
-    padding-left: 3rem;
+    border-color: #00f7ff;
+    box-shadow: 0 0 8px rgba(0, 247, 255, 0.5);
 }
 
-.search_icon {
-    position: absolute;
-    left: 1rem;
-    color: var(--text-secondary);
-    font-size: 1.2rem;
-    pointer-events: none;
+/* NOVO ESTILO: Botão da Lupa Lateral */
+.search_button {
+    /* Botão criado com a tag <i> dentro do <form> */
+    width: 45px;
+    height: 45px;
+    margin-left: -1px; /* Remove o pequeno espaço entre o input e o botão */
+    border: none;
+    border-radius: 0 var(--border-radius-lg) var(--border-radius-lg) 0; /* Cantos direitos arredondados */
+    cursor: pointer;
+    
+    /* Gradiente neon na cor do layout */
+    background: linear-gradient(90deg, #00f7ff, #3af53a); 
+    color: var(--dark-bg);
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    box-shadow: 0 0 5px rgba(0, 255, 102, 0.3);
+    transition: all 0.3s ease;
+    font-size: 1.3rem; /* Tamanho do ícone */
+}
+
+/* Substitui o <i>.search_icon para se comportar como um botão */
+.search_form .search_icon {
+    position: static; /* Remove o posicionamento absoluto */
+    width: 2.7rem;
+    height: 2.7rem;
+    /* Transforma o ícone em botão, com o estilo que você pediu */
+    background: linear-gradient(90deg, #00f7ff, #3af53a); 
+    color: var(--dark-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0 var(--border-radius-lg) var(--border-radius-lg) 0;
+    font-size: 1.3rem; 
+    cursor: pointer;
+    margin-left: -1px;
+    box-shadow: 0 0 5px rgba(0, 255, 102, 0.3);
+}
+
+.search_form .search_icon:hover {
+    background: linear-gradient(90deg, #00f7ff, #00bd00); 
+    box-shadow: 0 0 10px rgba(0, 255, 102, 0.6);
 }
 
 /* Filtro de Botões */
@@ -302,14 +348,19 @@ TAREFAS
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    padding: 0 1rem;
+    padding: 1rem;
+    background-color: #1c1c24;
+    border-radius: var(--border-radius-lg);
 }
 
+/* CORREÇÃO: CARD DE TAREFA - AJUSTADO PARA ALTO CONTRASTE */
 .cx_tarefa {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--task-item-bg);
+    /* Usa o novo fundo mais opaco */
+    background-color: var(--task-item-bg-opaco); 
+    border: 1px solid rgba(255, 255, 255, 0.08); /* Borda sutil de separação */
     padding: 1rem 1.5rem;
     border-radius: var(--border-radius-sm);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -359,6 +410,9 @@ TAREFAS
     background: var(--card-bg);
     border-radius: var(--border-radius-lg);
     color: var(--text-secondary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .meditation_emoji {
