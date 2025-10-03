@@ -105,5 +105,5 @@ Se tiver ideias de melhorias, encontrar bugs ou quiser sugerir novas funcionalid
 
 👨‍💻 Desenvolvido por: **Anathyon Erysson**  
 🔗 [LinkedIn](https://www.linkedin.com/in/anathyonerysson/)  
-📧 **anathyonerysson@protonmail.com**
+📧 **anathyon@protonmail.com**
 
