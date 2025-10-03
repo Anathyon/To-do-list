@@ -541,8 +541,17 @@ DIALOGS (Estilizando as janelas modais)
 }
 
 @media (width: 360px) {
+    body {
+        overflow-x: hidden;
+    }
     #search_filter_column {
-        right: 1.4rem;
+        right: 10%;
+        width: 120%;
+    }
+    #add_task_column {
+        width: 120%;
+        position: relative;
+        right: 10%;
     }
 }
 
