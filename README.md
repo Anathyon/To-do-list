@@ -1,90 +1,109 @@
-Lista de Tarefas
+# 📝 To-Do List Premium
 
-Este é um projeto de Lista de Tarefas (To-Do List) desenvolvido com TypeScript, HTML e CSS. O objetivo é permitir que o usuário adicione, visualize e remova tarefas, com persistência de dados utilizando o localStorage.
+Este é um projeto moderno e funcional de **Lista de Tarefas (To-Do List)**, desenvolvido com **TypeScript, HTML5 e CSS3**.  
+Com um design exclusivo no estilo **Neon Glassmorphism**, ele oferece uma experiência visual elegante e responsiva para gerenciar suas tarefas do dia a dia.
 
-Funcionalidades
+O projeto conta com **persistência de dados no localStorage** e suporte a **Progressive Web App (PWA)**, garantindo uma experiência semelhante a aplicativos nativos, com instalação e funcionamento offline.
 
-Adicionar uma nova tarefa com título, data e hora.
+---
 
-Exibir a lista de tarefas salvas.
+## ✨ Destaques do Projeto
 
-Remover tarefas individualmente.
-
-# 📝 Lista de Tarefas (To-Do List)
-
-Este é um projeto simples e funcional de **Lista de Tarefas (To-Do List)** desenvolvido com **TypeScript**, **HTML5** e **CSS3**. O objetivo é proporcionar ao usuário uma interface amigável e responsiva para gerenciar suas tarefas diárias, com persistência dos dados no **localStorage** para garantir que as informações sejam mantidas mesmo após o recarregamento da página.
+- 🎨 **Design Premium:** Estilo moderno com Glassmorphism e detalhes em Neon Gradient (verde e ciano).  
+- 📲 **PWA (Progressive Web App):** Instalável, funciona offline e carrega instantaneamente.  
+- 📊 **Painel de Estatísticas:** Exibe tarefas criadas, concluídas e próximas (24h).  
+- 🛠️ **Controle Completo:** CRUD (Criar, Ler, Atualizar e Deletar) de tarefas.  
+- 🔍 **Filtros Inteligentes:** Filtragem por status (Ativas/Concluídas) e pesquisa por título.  
+- 📱 **Totalmente Responsivo:** Layout otimizado para Desktop, Tablet (colunas) e Mobile.  
 
 ---
 
 ## 📌 Funcionalidades
 
-- ✅ Adicionar nova tarefa com título, data e hora
-- ✅ Exibir a lista de tarefas salvas
-- ✅ Remover tarefas individualmente
-- ✅ Persistência automática dos dados no localStorage
-- ✅ Interface responsiva e intuitiva para todos os dispositivos
+- ✅ **Adicionar/Cadastrar:** Criação de novas tarefas com título, data e hora.  
+- ✅ **Exibir/Gerenciar:** Lista de tarefas salvas e organizadas.  
+- ✅ **Edição Completa:** Alteração de título, data e hora através de modais.  
+- ✅ **Conclusão:** Marcar e desmarcar tarefas como concluídas.  
+- ✅ **Remoção:** Exclusão individual de tarefas.  
+- ✅ **Persistência de Dados:** Uso de `localStorage` para salvar todas as tarefas no navegador.  
 
 ---
 
 ## 🧪 Tecnologias Utilizadas
 
-| Ferramenta | Descrição |
-|------------|-----------|
-| [TypeScript](https://www.typescriptlang.org/) | Tipagem estática para maior robustez |
-| [HTML5](https://developer.mozilla.org/pt-BR/docs/Web/HTML) | Estruturação semântica da página |
-| [CSS3](https://developer.mozilla.org/pt-BR/docs/Web/CSS) | Estilização e responsividade da interface |
+| Ferramenta       | Descrição |
+|------------------|------------|
+| **TypeScript**   | Tipagem estática robusta, compilado para JavaScript (ES6+). |
+| **HTML5**        | Estruturação semântica da página. |
+| **CSS3**         | Estilização avançada com Glassmorphism, gradientes, efeitos neon e Media Queries. |
+| **PWA**          | Service Worker e Web Manifest para offline e instalação nativa. |
+| **Bootstrap Icons** | Ícones modernos para botões e status (via npm). |
 
 ---
 
 ## 🖼️ Layout
 
-> 💻 Desktop | 📱 Mobile  
+Visualização do **Dashboard** em diferentes dispositivos:
 
-| Desktop             | Mobile              |
-|---------------------|---------------------|
-<div align="center"> <img src="./assets/todo-desktop.png.png" width="400" alt="Versão Desktop" /> <img src="./assets/todo-mobile.jpg.jpg" width="200" alt="Versão Mobile" /> </div>
+### 💻 Desktop  
+<div align="center">  
+  <img src="https://github.com/Anathyon/To-do-list/blob/main/assets/todo-desktop.png" width="400" alt="Versão Desktop" />  
+</div>  
 
+### 📱 Mobile  
+<div align="center">  
+  <img src="https://github.com/Anathyon/To-do-list/blob/main/assets/todo-mobile.jpg" width="200" alt="Versão Mobile" />  
+</div>  
 
 ---
 
 ## 🚀 Como Executar o Projeto
 
-1. **Clone o repositório**
-   ```bash
-   git clone https://github.com/seu-usuario/nome-do-repositorio.git
-   cd nome-do-repositorio
-   ```
+### 1️⃣ Clonar o Repositório
+```bash
+git clone https://github.com/seu-usuario/nome-do-repositorio.git
+cd nome-do-repositorio
+```
 
-2. **Abra o arquivo `index.html` no seu navegador**
-   - Você poderá interagir com a aplicação e testar todas as funcionalidades.
+### 2️⃣ Instalar Dependências e Compilar (Node.js)
+```bash
+# Instale as dependências
+npm install
 
----
+# Compile o TypeScript para JavaScript (saída em script_js/)
+npx tsc
+```
 
-## 🔒 Validação de Entradas
+### 3️⃣ Executar Localmente (Obrigatório para PWA)
+Para testar a funcionalidade de **PWA/Service Worker**, é necessário rodar o projeto em um servidor **http://** (não `file://`).
 
-- Impede a adição de tarefas com campos vazios.
-- Permite agendar a tarefa com data e hora específicas.
-- Exibe todas as tarefas salvas, mesmo após fechar e reabrir o navegador.
+Opções recomendadas:
+- Extensão **Live Server** (VS Code).  
+- Servidor simples com Node.js:  
+```bash
+npx http-server
+```
 
 ---
 
 ## 🔄 Melhorias Futuras
 
-- 🔨 Adicionar opção para **editar tarefas existentes**.
-- 🔨 Implementar **categorias ou etiquetas** para facilitar a organização das tarefas.
-- 🔨 Adicionar uma opção de **ordenar** por data, prioridade ou status.
+- 🔔 Implementar **notificações push** para tarefas agendadas (via PWA).  
+- 📅 Adicionar **ordenação por data ou status**.  
+- ⛔ Criar **validação robusta** para impedir datas passadas.  
 
 ---
 
 ## 🤝 Contribuições
 
-Contribuições são muito bem-vindas! Se você tiver ideias para melhorias, encontrar bugs ou desejar sugerir novas funcionalidades, sinta-se à vontade para abrir uma **issue** ou enviar um **pull request**. Vamos juntos deixar essa lista de tarefas ainda melhor! 🚀
+Contribuições são muito bem-vindas!  
+Se tiver ideias de melhorias, encontrar bugs ou quiser sugerir novas funcionalidades, abra uma **issue** ou envie um **pull request**.
 
 ---
 
 ## 🧑‍💻 Autor
 
-Desenvolvido por: **Anathyon Erysson**  
-💼 [LinkedIn](https://www.linkedin.com/in/anathyonerysson/)  
-📧 anathyonerysson@protonmail.com
+👨‍💻 Desenvolvido por: **Anathyon Erysson**  
+🔗 [LinkedIn](https://www.linkedin.com/in/anathyonerysson/)  
+📧 **anathyonerysson@protonmail.com**
 
